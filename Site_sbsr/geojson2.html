@@ -1,0 +1,54 @@
+<!DOCTYPE>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>SBSR</title>
+    <!-- Link para arquivos base -->
+    <link type="text/css" rel="stylesheet" href="style.css"/>
+    <!-- Leaflet -->
+    <script src="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.3.0/build/ol.js"></script>
+    <link rel="stylesheet" href="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.3.0/css/ol.css">
+    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
+    <script src="mapa_geoj.js"></script>
+  </head>
+  <body>
+    <header>
+      <ul>
+        <li><a href="index.html">Sobre</a></li>
+        <li><a href="wms.html">WMS</a></li>
+        <li><a href="geojson.html">GeoJSON</a></li>
+        <li><a href="vectortile.html">Vector tile</a></li>
+      </ul>
+    </header>
+    <div class="grid-mapa">
+      <script>
+      // import Map from 'ol/Map.js';
+      // import View from 'ol/View.js';
+      import TileLayer from 'ol/layer/Tile';
+      // import XYZ from 'ol/source/XYZ.js';
+
+      var urlTpl = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
+
+      var layerBackground = new TileLayer({
+        visible: false,
+        preload: Infinity,
+        source: new XYZ({
+          url: urlTpl,
+          attributions: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community '
+        })
+      });
+
+      var view = new View({
+             center: [-25.5, -49.3],
+             zoom: 11
+           });
+
+      var map = new Map({
+        layers: layerBackground,
+        target: 'mapa_geoj',
+        view: view
+      });
+      </script>
+    </div>
+  </body>
+</html>
